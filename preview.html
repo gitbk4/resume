@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bill Kelly – Resume</title>
+  <title>Bill Kelly – Resume (Preview)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
@@ -737,6 +737,7 @@
     }
 
     document.querySelectorAll('[data-copy]').forEach(el => {
+      // Inject copy icon
       const iconSpan = document.createElement('span');
       iconSpan.className = 'copy-icon';
       iconSpan.innerHTML = COPY_SVG;
@@ -766,10 +767,10 @@
       currentIdx = idx;
       const job = jobs[idx];
 
-      const company   = job.querySelector('[data-field="company"]').innerHTML;
-      const title     = job.querySelector('[data-field="title"]').innerHTML;
-      const locEl     = job.querySelector('[data-field="location"]');
-      const datesEl   = job.querySelector('[data-field="dates"]');
+      const company  = job.querySelector('[data-field="company"]').innerHTML;
+      const title    = job.querySelector('[data-field="title"]').innerHTML;
+      const locEl    = job.querySelector('[data-field="location"]');
+      const datesEl  = job.querySelector('[data-field="dates"]');
       const bulletsEl = job.querySelector('ul[data-field="bullets"]');
 
       let html = `<div data-row="role-meta">
@@ -777,8 +778,8 @@
         &nbsp;<span data-field="title">${title}</span>
       </div>
       <div data-row="role-right">
-        ${locEl   ? `<span data-field="location">${locEl.innerHTML}</span>`   : ''}
-        ${datesEl ? `<span data-field="dates">${datesEl.innerHTML}</span>`    : ''}
+        ${locEl   ? `<span data-field="location">${locEl.innerHTML}</span>` : ''}
+        ${datesEl ? `<span data-field="dates">${datesEl.innerHTML}</span>`  : ''}
       </div>`;
       if (bulletsEl) html += bulletsEl.outerHTML;
 
@@ -797,6 +798,7 @@
       currentIdx = -1;
     }
 
+    // Open on desktop role-header click
     jobs.forEach((job, idx) => {
       job.querySelector('[data-row="role-header"]').addEventListener('click', () => {
         if (isMobile()) return;
@@ -818,11 +820,13 @@
 
     /* ─────────────────────────────────────
        MOBILE: focus / center mode
+       Tap a job → dim others + scroll to center
     ───────────────────────────────────── */
     jobs.forEach(job => {
       job.querySelector('[data-row="role-header"]').addEventListener('click', e => {
         if (!isMobile()) return;
         const alreadyFocused = job.classList.contains('focused');
+        // Clear state
         jobs.forEach(j => j.classList.remove('focused'));
         document.body.classList.remove('mobile-focus');
         if (!alreadyFocused) {
@@ -834,6 +838,7 @@
       });
     });
 
+    // Tap outside any job dismisses focus mode on mobile
     document.addEventListener('click', e => {
       if (!isMobile() || !document.body.classList.contains('mobile-focus')) return;
       if (!e.target.closest('article[data-type="job"]')) {
