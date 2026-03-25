@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bill Kelly – Resume</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── COLOR TOKENS – DAY ── */
+    :root {
+      --bg:   #F2F0E8;
+      --text: #1a1a1a;
+      --name: #1a8ec0;
+      --rule: #1a1a1a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* ── BASE ── */
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'IBM Plex Sans', Arial, sans-serif;
+      font-size: 13px;
+      padding: 9px 10px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    /* ── FONT ASSIGNMENTS ── */
+    /* Space Grotesk: name, contact, section titles */
+    [data-font="space-grotesk"] {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    /* IBM Plex Sans: everything else (base body font) */
+    [data-font="ibm-plex"] {
+      font-family: 'IBM Plex Sans', Arial, sans-serif;
+    }
+
+    /* ══════════════════════════════════════
+       HEADER
+    ══════════════════════════════════════ */
+    header[data-section="header"] {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 2px;
+    }
+
+    [data-field="name"] {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 34px;
+      font-weight: 700;
+      color: var(--name);
+      letter-spacing: -0.5px;
+      line-height: 1;
+    }
+
+    [data-field="contact"] {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      color: var(--text);
+      text-align: right;
+    }
+
+    [data-field="contact"] a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ══════════════════════════════════════
+       SECTION STRUCTURE
+    ══════════════════════════════════════ */
+    section[data-section] {
+      margin-bottom: 5px;
+    }
+
+    section[data-section] > *:not([data-label="section-title"]):not(hr) {
+      padding-left: 10px;
+    }
+
+    [data-label="section-title"] {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 5px;
+    }
+
+    hr {
+      border: none;
+      border-top: 1.5px solid var(--rule);
+      margin-bottom: 5px;
+    }
+
+    /* ══════════════════════════════════════
+       JOB ENTRIES
+    ══════════════════════════════════════ */
+    article[data-type="job"] {
+      margin-bottom: 3px;
+    }
+
+    [data-row="role-header"] {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    [data-row="role-meta"] {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 3px;
+    }
+
+    [data-row="role-right"] {
+      display: flex;
+      align-items: baseline;
+      white-space: nowrap;
+      gap: 10px;
+    }
+
+    [data-field="company"] {
+      font-family: 'IBM Plex Sans', Arial, sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    [data-field="title"] {
+      font-family: 'IBM Plex Sans', Arial, sans-serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 13px;
+    }
+
+    [data-field="location"] {
+      font-family: 'IBM Plex Sans', Arial, sans-serif;
+      font-size: 13px;
+      color: var(--text);
+    }
+
+    [data-field="dates"] {
+      font-family: 'IBM Plex Sans', Arial, sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    ul[data-field="bullets"] {
+      list-style: disc;
+      padding-left: 20px;
+      margin-top: 1px;
+    }
+
+    ul[data-field="bullets"] li {
+      font-family: 'IBM Plex Sans', Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.25;
+      margin-bottom: 1.5px;
+    }
+
+    /* Sub-role (second title at same company, no repeated company name) */
+    [data-type="sub-role"] {
+      margin-top: 3px;
+    }
+
+    [data-type="sub-role"] > [data-row="role-header"] {
+      padding-left: 8px;
+    }
+
+    /* ══════════════════════════════════════
+       EDUCATION
+    ══════════════════════════════════════ */
+    article[data-type="education"] {
+      margin-bottom: 3px;
+    }
+
+    [data-field="school"] {
+      font-family: 'IBM Plex Sans', Arial, sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    [data-field="degree"] {
+      font-family: 'IBM Plex Sans', Arial, sans-serif;
+      font-style: italic;
+      font-size: 13px;
+    }
+
+    /* ══════════════════════════════════════
+       EXTRA
+    ══════════════════════════════════════ */
+    [data-label="subsection-title"] {
+      font-family: 'IBM Plex Sans', Arial, sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      margin-bottom: 1px;
+      margin-top: 2px;
+    }
+
+    [data-type="extra-row"] {
+      font-family: 'IBM Plex Sans', Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.2;
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════
+       HEADER
+  ═══════════════════════════════════ -->
+  <header data-section="header">
+    <span data-field="name" data-font="space-grotesk">Bill Kelly</span>
+    <span data-field="contact" data-font="space-grotesk">
+      <a href="mailto:bkelly4444@gmail.com">bkelly4444@gmail.com</a>
+      &nbsp;•&nbsp;
+      <a href="tel:+12035547661">203-554-7661</a>
+      &nbsp;•&nbsp;
+      <a href="https://linkedin.com/in/bkairx" target="_blank" rel="noopener">linkedin.com/in/bkairx</a>
+    </span>
+  </header>
+
+  <!-- ═══════════════════════════════════
+       SUMMARY
+  ═══════════════════════════════════ -->
+  <section data-section="summary">
+    <div data-label="section-title" data-font="space-grotesk">Summary</div>
+    <hr />
+    <div data-type="extra-row" data-field="summary">
+      Senior Product Leader with 10+ years building growth, platform, and AI-powered products at Google, Pinterest, Disney+, and Butterfly Network. Most recently founded and scaled an LLM-powered healthcare SaaS platform from 0→1 to $2.5M CARR with 200+ customers. Deep experience shipping in regulated environments (HIPAA, SOC 2, GDPR). Hands-on AI product development combined with proven product strategy, experimentation, and cross-functional leadership.
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       SKILLS
+  ═══════════════════════════════════ -->
+  <section data-section="skills">
+    <div data-label="section-title" data-font="space-grotesk">Skills</div>
+    <hr />
+
+    <div data-label="subsection-title" data-field="skills-product-label">Product</div>
+    <div data-type="extra-row" data-field="skills-product">
+      Product Strategy &amp; Roadmap, User Research, A/B Testing &amp; Experimentation, OKRs, Go-to-Market, Stakeholder Management, Agile, XFN Leadership, Executive Communication
+    </div>
+
+    <div data-label="subsection-title" data-field="skills-ai-label">AI/ML</div>
+    <div data-type="extra-row" data-field="skills-ai">
+      LLM Application Design, Prompt Engineering, AI Agent Workflows, Claude Code/CLI, AI UX Patterns, Model Evaluation
+    </div>
+
+    <div data-label="subsection-title" data-field="skills-technical-label">Technical</div>
+    <div data-type="extra-row" data-field="skills-technical">
+      SQL, BigQuery, Snowflake, JavaScript, React, Python, Figma, Tableau, HTML/CSS, AWS, Google Suite, Webflow, cpanel
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       EXPERIENCE
+  ═══════════════════════════════════ -->
+  <section data-section="experience">
+    <div data-label="section-title" data-font="space-grotesk">Experience</div>
+    <hr />
+
+    <!-- Airx Health -->
+    <article data-type="job" data-company="Airx Health" data-title="Founder &amp; Head of Product">
+      <div data-row="role-header">
+        <div data-row="role-meta">
+          <span data-field="company">Airx Health</span>&nbsp;<span data-field="title">Founder &amp; Head of Product</span>
+        </div>
+        <div data-row="role-right">
+          <span data-field="location">San Francisco Bay Area (Remote)</span>
+          <span data-field="dates">April 2022 – Present</span>
+        </div>
+      </div>
+      <ul data-field="bullets">
+        <li>Founded and led product development of an LLM-powered pharmacy optimization platform from 0→1 in a highly regulated healthcare environment, defining product strategy, roadmap, and go-to-market.</li>
+        <li>Raised $3M+ in funding by translating product vision into investor-ready strategy; scaled to $2.5M+ CARR with 200+ paying pharmacy customers after commercial launch in 2025.</li>
+        <li>Led product development in compliance with HIPAA, SOC 2 Type II, and DEA requirements, translating regulatory constraints into secure, scalable product architecture.</li>
+        <li>Developed product-market fit through continuous user research, A/B testing, and iterative development with a cross-functional team of engineers, designers, and clinical stakeholders.</li>
+        <li>Shipped AI agent workflows and LLM-powered web applications and automated outreach systems for sales, operations, and support, winning +50% demos and 5x onboarding efficiency vs industry benchmark, using VScode agent CLI prompt-engineering.</li>
+      </ul>
+    </article>
+
+    <!-- Butterfly Network -->
+    <article data-type="job" data-company="Butterfly Network" data-title="Product Manager, Growth Initiatives">
+      <div data-row="role-header">
+        <div data-row="role-meta">
+          <span data-field="company">Butterfly Network</span>&nbsp;<span data-field="title">Product Manager, Growth Initiatives</span>
+        </div>
+        <div data-row="role-right">
+          <span data-field="location">New York, NY</span>
+          <span data-field="dates">May 2021 – March 2022</span>
+        </div>
+      </div>
+      <ul data-field="bullets">
+        <li>Led product discovery, experimentation, and launch of web and sales system interfaces serving an 18M+ addressable market, maintaining 100% on-time delivery.</li>
+        <li>Balanced rapid A/B testing with HIPAA and SOC 2 compliance, enabling secure iteration in a clinical product environment.</li>
+        <li>Shipped cross-functional features driving 10% e-commerce growth and expansion into EMEA markets through close stakeholder management across product, engineering, and sales.</li>
+        <li>Established standardized experiment and launch reporting templates, enabling executives to quickly assess results and align on product roadmap priorities.</li>
+      </ul>
+    </article>
+
+    <!-- Disney Streaming -->
+    <article data-type="job" data-company="Disney Streaming" data-title="Product Manager, Growth">
+      <div data-row="role-header">
+        <div data-row="role-meta">
+          <span data-field="company">Disney Streaming</span>&nbsp;<span data-field="title">Product Manager, Growth</span>
+        </div>
+        <div data-row="role-right">
+          <span data-field="location">New York, NY</span>
+          <span data-field="dates">May 2020 – Apr. 2021</span>
+        </div>
+      </div>
+      <ul data-field="bullets">
+        <li>Owned growth and engagement product strategy for Disney+ and ESPN+, impacting 25M+ global users across subscriber retention and content discovery.</li>
+        <li>Drove product discovery, experimentation, and launch of engagement features; aligned growth initiative roadmaps with executive stakeholders and company OKRs.</li>
+        <li>Built data pipelines and wrote SQL queries to support user messaging, analyze feature performance, and directly inform product iteration decisions.</li>
+      </ul>
+    </article>
+
+    <!-- Pinterest – Operations Product Lead -->
+    <article data-type="job" data-company="Pinterest" data-title="Operations Product Lead, Partner Operations">
+      <div data-row="role-header">
+        <div data-row="role-meta">
+          <span data-field="company">Pinterest</span>&nbsp;<span data-field="title">Operations Product Lead, Partner Operations</span>
+        </div>
+        <div data-row="role-right">
+          <span data-field="location">New York, NY</span>
+          <span data-field="dates">June 2018 – Apr. 2020</span>
+        </div>
+      </div>
+      <ul data-field="bullets">
+        <li>Established performance management, data analysis, and escalation processes that improved operational efficiency by 300% across measurement and shopping product verticals.</li>
+        <li>Increased conversion product adoption by 109% through cross-functional collaboration with product, engineering, support, and partner teams while managing GDPR and SOC 1 compliance.</li>
+        <li>Product managed the operational and tooling layer of shopping partner integrations; launched an app built on Pinterest and partner APIs.</li>
+        <li>Prioritized product improvements under constrained engineering resources by analyzing data quality trends, bounce rates, and user feedback.</li>
+      </ul>
+    </article>
+
+    <!-- Pinterest – Product Specialist -->
+    <article data-type="job" data-company="Pinterest" data-title="Product Specialist, Partner Operations">
+      <div data-row="role-header">
+        <div data-row="role-meta">
+          <span data-field="company">Pinterest</span>&nbsp;<span data-field="title">Product Specialist, Partner Operations</span>
+        </div>
+        <div data-row="role-right">
+          <span data-field="location">New York, NY</span>
+          <span data-field="dates">Dec. 2016 – June 2018</span>
+        </div>
+      </div>
+      <ul data-field="bullets">
+        <li>Developed the product roadmap for Pinterest first-party measurement, driving 32% adoption increase while adhering to GDPR and SOC 1 requirements.</li>
+        <li>Led product design and development of Pinterest Tag Helper, a Chrome extension with 20,000+ users, reducing measurement product operational costs by 5x.</li>
+        <li>Increased overall enterprise ops efficiency by 20% during Sales org growth of 30% by partnering with Sales teams across the US and Europe to uplevel go-to-market performance ads fluency; creative testing, optimization campaigns, bid formats, auction dynamics, attribution &amp; measurement.</li>
+      </ul>
+    </article>
+
+    <!-- ZonerApp -->
+    <article data-type="job" data-company="ZonerApp" data-title="Co-founder, COO">
+      <div data-row="role-header">
+        <div data-row="role-meta">
+          <span data-field="company">ZonerApp</span>&nbsp;<span data-field="title">Co-founder, COO</span>
+        </div>
+        <div data-row="role-right">
+          <span data-field="location">New York, NY</span>
+          <span data-field="dates">June 2015 – Sept. 2015</span>
+        </div>
+      </div>
+      <ul data-field="bullets">
+        <li>Secured $100K in seed funding through the AREA accelerator by leading market analysis, product strategy, and pitch development.</li>
+      </ul>
+    </article>
+
+    <!-- KGS-Alpha Capital Markets -->
+    <article data-type="job" data-company="KGS-Alpha Capital Markets" data-title="Intern">
+      <div data-row="role-header">
+        <div data-row="role-meta">
+          <span data-field="company">KGS-Alpha Capital Markets</span>&nbsp;<span data-field="title">Intern</span>
+        </div>
+        <div data-row="role-right">
+          <span data-field="location">New York, NY</span>
+          <span data-field="dates">June 2014 – August 2014</span>
+        </div>
+      </div>
+      <ul data-field="bullets">
+        <li>Created proprietary scripts to synchronize third party real estate data with in-house financial modeling.</li>
+      </ul>
+    </article>
+
+    <!-- Google -->
+    <article data-type="job" data-company="Google" data-title="Technical Product Specialist, Search">
+      <div data-row="role-header">
+        <div data-row="role-meta">
+          <span data-field="company">Google</span>&nbsp;<span data-field="title">Technical Product Specialist, Search</span>
+        </div>
+        <div data-row="role-right">
+          <span data-field="location">Mountain View, CA</span>
+          <span data-field="dates">Sept. 2015 – Nov. 2016</span>
+        </div>
+      </div>
+      <ul data-field="bullets">
+        <li>Resolved complex technical issues across search markets, achieving 110% of performance targets.</li>
+        <li>Awarded 14 peer bonuses for technical expertise, responsiveness, and cross-team collaboration.</li>
+      </ul>
+    </article>
+
+  </section>
+
+  <!-- ═══════════════════════════════════
+       EDUCATION
+  ═══════════════════════════════════ -->
+  <section data-section="education">
+    <div data-label="section-title" data-font="space-grotesk">Education</div>
+    <hr />
+
+    <article data-type="education" data-school="Emory University">
+      <div data-row="role-header">
+        <div data-row="role-meta">
+          <span data-field="school">Emory University</span>&nbsp;<span data-field="degree">Bachelor of Arts in Economics, Italian Minor</span>
+        </div>
+        <div data-row="role-right">
+          <span data-field="location">Atlanta, GA</span>
+          <span data-field="dates">Graduated May 2015</span>
+        </div>
+      </div>
+    </article>
+
+    <article data-type="education" data-school="Bocconi & Cattolica Universities" style="padding-left: 12px;">
+      <div data-row="role-header">
+        <div data-row="role-meta">
+          <span data-field="school">Bocconi &amp; Cattolica Universities</span>&nbsp;<span data-field="degree">Labor Economics, Italian Language</span>
+        </div>
+        <div data-row="role-right">
+          <span data-field="location">Milan, Italy</span>
+          <span data-field="dates">Sept. 2014 – Dec. 2014</span>
+        </div>
+      </div>
+    </article>
+
+    <article data-type="education" data-school="Berkshire School">
+      <div data-row="role-header">
+        <div data-row="role-meta">
+          <span data-field="school">Berkshire School</span>&nbsp;<span data-field="degree">High School</span>
+        </div>
+        <div data-row="role-right">
+          <span data-field="location">Sheffield, MA</span>
+          <span data-field="dates">Graduated June 2011</span>
+        </div>
+      </div>
+    </article>
+
+  </section>
+
+  <!-- ═══════════════════════════════════
+       EXTRA
+  ═══════════════════════════════════ -->
+  <section data-section="extra">
+    <div data-label="section-title" data-font="space-grotesk">Extra</div>
+    <hr />
+
+    <div data-type="extra-row" data-field="interests">
+      Sailing, Diving, Emergency Medicine, Skateboarding, Surfing, Yoga, Graphic/Clothing/Product Design, Formula 1
+    </div>
+
+  </section>
+
+</body>
+</html>
