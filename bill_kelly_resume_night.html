@@ -221,6 +221,79 @@
       line-height: 1.2;
       margin-bottom: 0;
     }
+
+    /* ══════════════════════════════════════
+       MOBILE (≤ 640px)
+    ══════════════════════════════════════ */
+    @media (max-width: 640px) {
+      body {
+        padding: 16px 14px;
+        font-size: 14px;
+      }
+
+      header[data-section="header"] {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        margin-bottom: 10px;
+      }
+
+      [data-field="name"] {
+        font-size: 36px;
+      }
+
+      [data-field="contact"] {
+        font-size: 13px;
+        text-align: left;
+        line-height: 1.7;
+      }
+
+      [data-row="role-header"] {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1px;
+      }
+
+      [data-row="role-right"] {
+        white-space: normal;
+        font-size: 12px;
+        gap: 6px;
+        color: color-mix(in srgb, var(--text) 70%, transparent);
+      }
+
+      article[data-type="job"] {
+        margin-bottom: 12px;
+      }
+
+      article[data-type="education"] {
+        margin-bottom: 8px;
+      }
+
+      section[data-section] {
+        margin-bottom: 14px;
+      }
+
+      ul[data-field="bullets"] li {
+        line-height: 1.45;
+        margin-bottom: 4px;
+      }
+
+      section[data-section] > *:not([data-label="section-title"]):not(hr) {
+        padding-left: 0;
+      }
+
+      [data-type="sub-role"] > [data-row="role-header"] {
+        padding-left: 0;
+      }
+
+      #theme-toggle {
+        top: 10px;
+        right: 10px;
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
+      }
+    }
   </style>
 </head>
 <body>
