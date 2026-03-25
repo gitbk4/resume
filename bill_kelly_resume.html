@@ -8,12 +8,34 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
   <style>
-    /* ── COLOR TOKENS – DAY ── */
+    /* ── COLOR TOKENS ── */
     :root {
       --bg:   #F2F0E8;
       --text: #1a1a1a;
       --name: #1a8ec0;
       --rule: #1a1a1a;
+      --toggle-bg:    rgba(0,0,0,0.08);
+      --toggle-hover: rgba(0,0,0,0.15);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg:   #1C1A12;
+        --text: #DDD6C2;
+        --name: #4dc8f5;
+        --rule: #4a4840;
+        --toggle-bg:    rgba(255,255,255,0.08);
+        --toggle-hover: rgba(255,255,255,0.15);
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --bg:   #1C1A12;
+      --text: #DDD6C2;
+      --name: #4dc8f5;
+      --rule: #4a4840;
+      --toggle-bg:    rgba(255,255,255,0.08);
+      --toggle-hover: rgba(255,255,255,0.15);
     }
 
     * {
@@ -31,7 +53,28 @@
       padding: 9px 10px;
       max-width: 960px;
       margin: 0 auto;
+      transition: background-color 0.3s, color 0.3s;
     }
+
+    /* ── THEME TOGGLE ── */
+    #theme-toggle {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      background: var(--toggle-bg);
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      z-index: 100;
+    }
+    #theme-toggle:hover { background: var(--toggle-hover); }
 
     /* ── FONT ASSIGNMENTS ── */
     /* Space Grotesk: name, contact, section titles */
@@ -215,6 +258,8 @@
   </style>
 </head>
 <body>
+
+  <button id="theme-toggle" aria-label="Toggle day/night mode">🌙</button>
 
   <!-- ═══════════════════════════════════
        HEADER
@@ -473,6 +518,29 @@
     </div>
 
   </section>
+
+  <script>
+    const toggle = document.getElementById('theme-toggle');
+    const root   = document.documentElement;
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+    function isDark() {
+      return root.dataset.theme === 'dark' ||
+             (!root.dataset.theme && prefersDark.matches);
+    }
+
+    function update() {
+      toggle.textContent = isDark() ? '☀️' : '🌙';
+    }
+
+    toggle.addEventListener('click', () => {
+      root.dataset.theme = isDark() ? 'light' : 'dark';
+      update();
+    });
+
+    prefersDark.addEventListener('change', update);
+    update();
+  </script>
 
 </body>
 </html>
