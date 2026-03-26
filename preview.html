@@ -268,6 +268,233 @@
       #progress-bar, #theme-toggle, #print-btn, #toast, #job-modal { display: none !important; }
       body.mobile-focus article[data-type="job"] { opacity: 1 !important; }
     }
+
+    /* ══════════════════════════════════════
+       STORY MODE
+    ══════════════════════════════════════ */
+
+    /* Trigger button — below summary text */
+    #story-btn {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--name);
+      background: transparent;
+      border: 1px solid var(--name);
+      border-radius: 999px;
+      padding: 2px 9px 3px;
+      cursor: pointer;
+      opacity: 0.55;
+      transition: opacity 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 7px;
+    }
+    #story-btn:hover { opacity: 1; }
+    #story-btn svg { width: 11px; height: 11px; }
+
+    /* Modal shell */
+    #story-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 550;
+      align-items: center;
+      justify-content: center;
+    }
+    #story-modal.open { display: flex; }
+    #story-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+    #story-box {
+      position: relative;
+      background: var(--bg);
+      color: var(--text);
+      border-radius: 18px;
+      padding: 28px 20px 22px;
+      max-width: 560px;
+      max-height: calc(100svh - 40px);
+      overflow-y: auto;
+      width: calc(100% - 40px);
+      box-shadow: 0 28px 72px rgba(0,0,0,0.26);
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 300px;
+      cursor: pointer;
+      user-select: none;
+    }
+    #story-close {
+      position: absolute;
+      top: 14px; right: 16px;
+      background: none; border: none;
+      cursor: pointer;
+      color: var(--text);
+      opacity: 0.25;
+      font-size: 16px;
+      padding: 6px 7px;
+      border-radius: 50%;
+      transition: opacity 0.15s, background 0.15s;
+      z-index: 2;
+    }
+    #story-close:hover { opacity: 0.9; background: var(--toggle-bg); }
+
+    /* Stage: height animated by JS */
+    #story-stage {
+      position: relative;
+      overflow: visible;
+      transition: height 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.3s;
+    }
+
+    /* Ring wrapper — 220×220, centered */
+    #story-ring-wrap {
+      position: relative;
+      width: 220px;
+      height: 220px;
+      margin: 0 auto;
+      overflow: visible;
+    }
+
+    /* SVG: thin circle + directional arrows */
+    #story-ring-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      overflow: visible;
+    }
+    .s-ring-circle { fill: none; stroke: var(--text); stroke-width: 0.6; opacity: 0.18; }
+    .s-ring-arrow  { fill: var(--name); opacity: 0.5; }
+
+    /* Curved labels via SVG textPath */
+    .s-ring-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      fill: var(--name);
+      pointer-events: none;
+    }
+
+    /* Center quote (phase 3) */
+    #story-quote {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 12px; font-style: italic;
+      text-align: center;
+      color: var(--text);
+      opacity: 0;
+      transition: opacity 0.8s;
+      width: 110px;
+      line-height: 1.55;
+      pointer-events: none;
+    }
+    #story-quote.visible { opacity: 0.82; }
+
+    /* Logo items — absolutely positioned in #story-stage, JS-animated */
+    .slogo {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 2;
+    }
+    .slogo img {
+      width: 26px; height: 26px;
+      object-fit: contain; border-radius: 7px;
+      flex-shrink: 0;
+      filter: grayscale(1) opacity(0.5);
+      background: transparent;
+      border: 1.5px dashed rgba(128,128,128,0.3);
+      box-shadow: none;
+      transition: filter 0.5s, background 0.5s, border 0.5s, box-shadow 0.5s;
+    }
+    .slogo.lit img {
+      filter: none;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.09);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    .slogo-pills {
+      display: flex; flex-wrap: wrap; gap: 4px;
+      opacity: 0;
+      transition: opacity 0.4s 0.25s;
+      pointer-events: none;
+    }
+    .slogo.lit .slogo-pills { opacity: 1; pointer-events: auto; }
+    .slogo-pills span {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 10px; font-weight: 600;
+      color: var(--name);
+      background: rgba(26,142,192,0.1);
+      border: 1px solid rgba(26,142,192,0.18);
+      border-radius: 999px; padding: 2px 7px; letter-spacing: 0.02em;
+    }
+    :root[data-theme="dark"] .slogo-pills span {
+      background: rgba(77,200,245,0.1);
+      border-color: rgba(77,200,245,0.2);
+    }
+
+    /* Pause button */
+    #story-pause-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text);
+      opacity: 0.35;
+      padding: 5px;
+      border-radius: 50%;
+      transition: opacity 0.15s, background 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    #story-pause-btn:hover { opacity: 0.85; background: var(--toggle-bg); }
+    #story-pause-btn svg { width: 13px; height: 13px; }
+
+    /* Footer: ring + dots */
+    #story-footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 18px;
+      flex-shrink: 0;
+    }
+    #story-ring { flex-shrink: 0; cursor: default; }
+    .ring-bg  { fill: none; stroke: var(--rule); stroke-width: 2; opacity: 0.12; }
+    .ring-fill {
+      fill: none;
+      stroke: var(--name);
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      transform-origin: 20px 20px;
+      transform: rotate(-90deg);
+      stroke-dasharray: 100.53;
+      stroke-dashoffset: 100.53;
+    }
+    #story-dots { display: flex; gap: 5px; align-items: center; }
+    .sdot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--text);
+      opacity: 0.2;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .sdot.active { opacity: 0.85; transform: scale(1.35); }
+
+    @media (max-width: 640px) {
+      #story-box { padding: 28px 24px 22px; }
+    }
   </style>
 </head>
 <body>
@@ -337,6 +564,14 @@
     <div data-type="extra-row" data-field="summary">
       Senior Product Leader with 10+ years building growth, platform, and AI-powered products at Google, Pinterest, Disney+, and Butterfly Network. Most recently founded and scaled an LLM-powered healthcare SaaS platform from 0→1 to $2.5M CARR with 200+ customers. Deep experience shipping in regulated environments (HIPAA, SOC 2, GDPR). Hands-on AI product development combined with proven product strategy, experimentation, and cross-functional leadership.
     </div>
+    <button id="story-btn" aria-label="View story mode">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+           stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/>
+        <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
+      </svg>
+      Story
+    </button>
   </section>
 
   <section id="section-skills" data-section="skills">
@@ -537,6 +772,109 @@
     </div>
   </section>
 
+  <!-- ═══════════════════════════════════
+       STORY MODE MODAL
+  ═══════════════════════════════════ -->
+  <div id="story-modal" role="dialog" aria-modal="true" aria-label="Career story">
+    <div id="story-overlay"></div>
+    <div id="story-box">
+      <button id="story-close" aria-label="Close story">✕</button>
+
+      <div id="story-stage">
+
+        <div id="story-ring-wrap">
+          <svg id="story-ring-svg" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <!-- Label arcs at r=112, center (110,110) — just outside the r=104 circle -->
+              <!-- CURIOSITY: top, CW arc from −27° to +27° -->
+              <path id="lp-curiosity" d="M 60 12 A 112 112 0 0 1 160 12" fill="none"/>
+              <!-- LISTENING: lower-right, CW arc from 93° to 147° -->
+              <path id="lp-listening" d="M 222 117 A 112 112 0 0 1 172 205" fill="none"/>
+              <!-- BUILDING: lower-left, CW arc from 213° to 267° -->
+              <path id="lp-building"  d="M 48 205 A 112 112 0 0 1 -2 117" fill="none"/>
+            </defs>
+
+            <!-- Thin ring -->
+            <circle class="s-ring-circle" cx="110" cy="110" r="104"/>
+
+            <!-- Clockwise directional arrows at 60° / 180° / 300° -->
+            <g transform="translate(200,58) rotate(60)">
+              <polygon points="-6,-3.5 6,0 -6,3.5" class="s-ring-arrow"/>
+            </g>
+            <g transform="translate(110,214) rotate(180)">
+              <polygon points="-6,-3.5 6,0 -6,3.5" class="s-ring-arrow"/>
+            </g>
+            <g transform="translate(20,58) rotate(300)">
+              <polygon points="-6,-3.5 6,0 -6,3.5" class="s-ring-arrow"/>
+            </g>
+
+            <!-- Arced labels following the ring -->
+            <text class="s-ring-label">
+              <textPath href="#lp-curiosity" startOffset="50%" text-anchor="middle">CURIOSITY</textPath>
+            </text>
+            <text class="s-ring-label">
+              <textPath href="#lp-listening" startOffset="50%" text-anchor="middle">LISTENING</textPath>
+            </text>
+            <text class="s-ring-label">
+              <textPath href="#lp-building"  startOffset="50%" text-anchor="middle">BUILDING</textPath>
+            </text>
+          </svg>
+          <div id="story-quote">Always finding<br>opportunity for impact</div>
+        </div>
+
+        <!-- Logos: position:absolute in #story-stage, animated by JS -->
+        <!-- data-li: 0=newest (Airx) … 6=oldest (KGS) -->
+        <div class="slogo" data-li="0">
+          <img src="logos/airxhealth.png" alt="Airx Health">
+          <div class="slogo-pills"><span>$3M+ raised</span><span>$2.5M CARR</span><span>200+ customers</span></div>
+        </div>
+        <div class="slogo" data-li="1">
+          <img src="logos/butterfly.svg" alt="Butterfly">
+          <div class="slogo-pills"><span>18M+ market</span><span>10% Conv Rate ↑</span></div>
+        </div>
+        <div class="slogo" data-li="2">
+          <img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&amp;type=FAVICON&amp;fallback_opts=TYPE,SIZE,URL&amp;url=http://disneyplus.com&amp;size=128" alt="Disney+">
+          <div class="slogo-pills"><span>25M+ users</span><span>3% retention bump</span></div>
+        </div>
+        <div class="slogo" data-li="3">
+          <img src="logos/pinterest.png" alt="Pinterest">
+          <div class="slogo-pills"><span>300% ops ↑</span><span>20K+ tool users</span><span>2x Measure Adoption</span></div>
+        </div>
+        <div class="slogo" data-li="4">
+          <img src="logos/google.png" alt="Google">
+          <div class="slogo-pills"><span>110% perf target</span><span>14 peer bonuses</span></div>
+        </div>
+        <div class="slogo" data-li="5">
+          <img src="logos/zonerapp.png" alt="ZonerApp">
+          <div class="slogo-pills"><span>$100K seed</span></div>
+        </div>
+        <div class="slogo" data-li="6">
+          <img src="logos/kgs_main.jpg" alt="KGS Alpha">
+          <div class="slogo-pills"><span>$15B mkt Analytics</span></div>
+        </div>
+
+      </div><!-- /story-stage -->
+
+      <div id="story-footer">
+        <svg id="story-ring" width="40" height="40" viewBox="0 0 40 40" aria-hidden="true">
+          <circle class="ring-bg"   cx="20" cy="20" r="16"/>
+          <circle class="ring-fill" id="ring-fill" cx="20" cy="20" r="16"/>
+        </svg>
+        <div id="story-dots">
+          <span class="sdot active"></span>
+          <span class="sdot"></span>
+          <span class="sdot"></span>
+        </div>
+        <button id="story-pause-btn" aria-label="Pause story">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>
+          </svg>
+        </button>
+      </div>
+
+    </div><!-- /story-box -->
+  </div><!-- /story-modal -->
+
   <script>
     /* THEME TOGGLE */
     const themeBtn    = document.getElementById('theme-toggle');
@@ -679,6 +1017,211 @@
         jobs.forEach(j => j.classList.remove('focused'));
         document.body.classList.remove('mobile-focus');
       }
+    });
+
+    /* ─────────────────────────────────────
+       STORY MODE — ring + logo cascade
+    ───────────────────────────────────── */
+    // Phase durations: ×1.25 → 3.75s / 4.375s / 6.875s = 15s total
+    const PHASE_DURATIONS = [3750, 4375, 6875];
+    const CIRC  = 2 * Math.PI * 16; // ~100.53 (ring r=16)
+    const START_F = [0,        3750/15000,  7875/15000];
+    const END_F   = [3750/15000, 7875/15000, 1.0];
+
+    // Logo drop order: oldest → newest (KGS=6 first, Airx=0 last)
+    const DROP_ORDER   = [6, 5, 4, 3, 2, 1, 0];
+    const DROP_STAGGER = 460; // ms between each logo starting to move (scaled ×1.25)
+    const LIST_TOP     = 226; // px below stage top where list starts (ring 220 + 6px gap)
+    const ROW_H        = 32;  // px per logo row
+
+    const storyModal    = document.getElementById('story-modal');
+    const storyDots     = [...document.querySelectorAll('.sdot')];
+    const ringFill      = document.getElementById('ring-fill');
+    const storyPauseBtn = document.getElementById('story-pause-btn');
+    const storyStage    = document.getElementById('story-stage');
+    const storyQuote    = document.getElementById('story-quote');
+    const slogos        = [...document.querySelectorAll('.slogo')];
+
+    let storyPhase     = 0;
+    let storyActive    = false;
+    let storyPaused    = false;
+    let storyTimer     = null;
+    let phaseStart     = null;
+    let storyRemaining = 0;
+    let dropTimers     = [];
+
+    function updatePauseBtn() {
+      if (storyPaused) {
+        storyPauseBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>`;
+        storyPauseBtn.setAttribute('aria-label', 'Resume story');
+      } else {
+        storyPauseBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>`;
+        storyPauseBtn.setAttribute('aria-label', 'Pause story');
+      }
+    }
+
+    function getRingWrapLeft() {
+      return Math.round((storyStage.offsetWidth - 220) / 2);
+    }
+
+    function setClusterPositions() {
+      const cx = getRingWrapLeft() + 110; // ring center x in stage coords
+      const cy = 110;                     // ring center y in stage coords
+      const R  = 52;                      // evenly distributed cluster radius
+      slogos.forEach((el, i) => {
+        const ang = (i / slogos.length) * 2 * Math.PI - Math.PI / 2;
+        el.style.transition = 'none';
+        el.style.left = Math.round(cx + R * Math.cos(ang) - 13) + 'px';
+        el.style.top  = Math.round(cy + R * Math.sin(ang) - 13) + 'px';
+        el.classList.remove('lit');
+      });
+    }
+
+    function dropLogos() {
+      const listLeft = Math.max(16, Math.round(storyStage.offsetWidth * 0.04));
+      // Expand stage height to fit ring + list
+      storyStage.style.height = (LIST_TOP + slogos.length * ROW_H + 20) + 'px';
+
+      dropTimers.forEach(t => clearTimeout(t));
+      dropTimers = [];
+
+      DROP_ORDER.forEach((liIdx, i) => {
+        const el = slogos[liIdx];
+        const finalTop  = LIST_TOP + liIdx * ROW_H;
+        const finalLeft = listLeft;
+        const t = setTimeout(() => {
+          el.style.transition = 'top 0.55s cubic-bezier(0.4,0,0.2,1), left 0.55s cubic-bezier(0.4,0,0.2,1)';
+          el.style.top  = finalTop  + 'px';
+          el.style.left = finalLeft + 'px';
+          setTimeout(() => el.classList.add('lit'), 200);
+        }, i * DROP_STAGGER);
+        dropTimers.push(t);
+      });
+    }
+
+    function animateRing(phaseIdx, duration) {
+      const fromOff = CIRC * (1 - START_F[phaseIdx]);
+      const toOff   = CIRC * (1 - END_F[phaseIdx]);
+      ringFill.style.transition = 'none';
+      ringFill.style.strokeDashoffset = fromOff;
+      ringFill.offsetHeight; // force reflow
+      requestAnimationFrame(() => {
+        ringFill.style.transition = `stroke-dashoffset ${duration}ms linear`;
+        ringFill.style.strokeDashoffset = toOff;
+      });
+    }
+
+    function showPhase(idx) {
+      storyPhase  = ((idx % 3) + 3) % 3;
+      storyPaused = false;
+
+      // Cancel any pending drop timers from a prior phase 1
+      dropTimers.forEach(t => clearTimeout(t));
+      dropTimers = [];
+
+      storyDots.forEach((d, i) => d.classList.toggle('active', i === storyPhase));
+
+      const duration = PHASE_DURATIONS[storyPhase];
+      animateRing(storyPhase, duration);
+
+      if (storyPhase === 0) {
+        // Reset: snap logos back to cluster, collapse stage, hide quote
+        storyStage.style.transition = 'none';
+        storyStage.style.height = '220px';
+        storyQuote.classList.remove('visible');
+        requestAnimationFrame(() => {
+          storyStage.style.transition = '';
+          setClusterPositions();
+        });
+      } else if (storyPhase === 1) {
+        dropLogos();
+      } else {
+        storyQuote.classList.add('visible');
+      }
+
+      clearTimeout(storyTimer);
+      storyRemaining = duration;
+      phaseStart     = Date.now();
+      storyTimer     = setTimeout(() => showPhase(storyPhase + 1), duration);
+      updatePauseBtn();
+    }
+
+    function pauseStory() {
+      if (storyPaused || !storyActive) return;
+      storyPaused = true;
+      clearTimeout(storyTimer);
+      dropTimers.forEach(t => clearTimeout(t));
+      const elapsed = Date.now() - phaseStart;
+      storyRemaining = Math.max(0, storyRemaining - elapsed);
+      const frozenOff = parseFloat(getComputedStyle(ringFill).strokeDashoffset);
+      ringFill.style.transition = 'none';
+      ringFill.style.strokeDashoffset = frozenOff;
+      updatePauseBtn();
+    }
+
+    function resumeStory() {
+      if (!storyPaused || !storyActive) return;
+      storyPaused = false;
+      phaseStart  = Date.now();
+      const toOff = CIRC * (1 - END_F[storyPhase]);
+      requestAnimationFrame(() => {
+        ringFill.style.transition = `stroke-dashoffset ${storyRemaining}ms linear`;
+        ringFill.style.strokeDashoffset = toOff;
+      });
+      storyTimer = setTimeout(() => showPhase(storyPhase + 1), storyRemaining);
+      updatePauseBtn();
+    }
+
+    function openStory() {
+      storyActive = true;
+      storyPaused = false;
+      storyModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      // Let modal render before measuring dimensions
+      requestAnimationFrame(() => showPhase(0));
+    }
+
+    function closeStory() {
+      storyActive = false;
+      storyPaused = false;
+      storyModal.classList.remove('open');
+      document.body.style.overflow = '';
+      clearTimeout(storyTimer);
+      dropTimers.forEach(t => clearTimeout(t));
+      dropTimers = [];
+      ringFill.style.transition = 'none';
+      ringFill.style.strokeDashoffset = CIRC;
+    }
+
+    // Click anywhere in box → advance phase
+    document.getElementById('story-box').addEventListener('click', e => {
+      if (e.target.closest('#story-close') ||
+          e.target.closest('#story-ring') ||
+          e.target.closest('#story-pause-btn')) return;
+      showPhase(storyPhase + 1);
+    });
+
+    storyPauseBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      if (storyPaused) resumeStory(); else pauseStory();
+    });
+
+    document.getElementById('story-btn').addEventListener('click', e => {
+      e.stopPropagation();
+      openStory();
+    });
+    document.getElementById('story-close').addEventListener('click', e => {
+      e.stopPropagation();
+      closeStory();
+    });
+    document.getElementById('story-overlay').addEventListener('click', closeStory);
+
+    document.addEventListener('keydown', e => {
+      if (!storyActive) return;
+      if (e.key === 'Escape') { closeStory(); return; }
+      if (e.key === ' ') { e.preventDefault(); if (storyPaused) resumeStory(); else pauseStory(); return; }
+      if (e.key === 'ArrowRight') { e.preventDefault(); showPhase(storyPhase + 1); }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); showPhase(storyPhase - 1); }
     });
   </script>
 
