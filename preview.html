@@ -30,7 +30,6 @@
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    /* ── BASE ── */
     body {
       background-color: var(--bg);
       color: var(--text);
@@ -42,9 +41,7 @@
       transition: background-color 0.3s, color 0.3s;
     }
 
-    /* ══════════════════════════════════════
-       1. SCROLL PROGRESS BAR
-    ══════════════════════════════════════ */
+    /* ── SCROLL PROGRESS BAR ── */
     #progress-bar {
       position: fixed;
       top: 0; left: 0;
@@ -55,16 +52,13 @@
       transition: width 0.05s linear;
     }
 
-    /* ══════════════════════════════════════
-       2. FIXED BUTTONS — monochromatic SVG
-    ══════════════════════════════════════ */
+    /* ── FIXED BUTTONS ── */
     .fixed-btn {
       position: fixed;
       background: var(--toggle-bg);
       border: none;
       border-radius: 50%;
-      width: 32px;
-      height: 32px;
+      width: 32px; height: 32px;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -78,290 +72,179 @@
     #theme-toggle { top: 12px; right: 12px; }
     #print-btn    { top: 52px; right: 12px; }
 
-    /* ══════════════════════════════════════
-       3. COPY TOAST
-    ══════════════════════════════════════ */
+    /* ── TOAST ── */
     #toast {
       position: fixed;
-      bottom: 40px;
-      left: 50%;
+      bottom: 40px; left: 50%;
       transform: translateX(-50%) translateY(10px);
-      background: var(--text);
-      color: var(--bg);
+      background: var(--text); color: var(--bg);
       font-family: 'Space Grotesk', sans-serif;
       font-size: 12px;
       padding: 6px 14px;
       border-radius: 999px;
-      opacity: 0;
-      pointer-events: none;
+      opacity: 0; pointer-events: none;
       transition: opacity 0.2s, transform 0.2s;
-      z-index: 600;
-      white-space: nowrap;
+      z-index: 600; white-space: nowrap;
     }
     #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    /* ── FONT ASSIGNMENTS ── */
     [data-font="space-grotesk"] { font-family: 'Space Grotesk', sans-serif; }
     [data-font="ibm-plex"]      { font-family: 'IBM Plex Sans', Arial, sans-serif; }
 
-    /* ══════════════════════════════════════
-       HEADER
-    ══════════════════════════════════════ */
+    /* ── HEADER ── */
     header[data-section="header"] {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      margin-bottom: 2px;
+      display: flex; align-items: baseline;
+      justify-content: space-between; margin-bottom: 2px;
     }
     [data-field="name"] {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 34px;
-      font-weight: 700;
-      color: var(--name);
-      letter-spacing: -0.5px;
-      line-height: 1;
+      font-size: 34px; font-weight: 700;
+      color: var(--name); letter-spacing: -0.5px; line-height: 1;
     }
     [data-field="contact"] {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 18px;
-      color: var(--text);
-      text-align: right;
+      font-size: 18px; color: var(--text); text-align: right;
     }
 
-    /* ══════════════════════════════════════
-       4. COPY ICON ON CONTACT HOVER
-    ══════════════════════════════════════ */
+    /* ── COPY ICON ON CONTACTS ── */
     [data-field="contact"] a {
-      color: inherit;
-      text-decoration: none;
-      cursor: pointer;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.15s;
-      display: inline-flex;
-      align-items: center;
-      gap: 3px;
+      color: inherit; text-decoration: none; cursor: pointer;
+      border-bottom: 1px solid transparent; transition: border-color 0.15s;
+      display: inline-flex; align-items: center; gap: 3px;
     }
     [data-field="contact"] a:hover { border-bottom-color: var(--name); }
-    .copy-icon {
-      opacity: 0;
-      transition: opacity 0.15s;
-      display: inline-flex;
-      align-items: center;
-      flex-shrink: 0;
-    }
+    .copy-icon { opacity: 0; transition: opacity 0.15s; display: inline-flex; align-items: center; flex-shrink: 0; }
     [data-field="contact"] a:hover .copy-icon { opacity: 0.55; }
     .copy-icon svg { width: 12px; height: 12px; }
 
-    /* ══════════════════════════════════════
-       SECTION STRUCTURE
-    ══════════════════════════════════════ */
+    /* ── SECTIONS ── */
     section[data-section] { margin-bottom: 5px; }
     section[data-section] > *:not([data-label="section-title"]):not(hr) { padding-left: 10px; }
     [data-label="section-title"] {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 14px;
-      font-weight: 400;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text);
-      margin-bottom: 5px;
+      font-size: 14px; font-weight: 400;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text); margin-bottom: 5px;
     }
     hr { border: none; border-top: 1.5px solid var(--rule); margin-bottom: 5px; }
 
-    /* ══════════════════════════════════════
-       JOB ENTRIES
-    ══════════════════════════════════════ */
+    /* ── JOBS ── */
     article[data-type="job"] { margin-bottom: 3px; }
-
-    [data-row="role-header"] {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-    }
-    [data-row="role-meta"] {
-      display: flex;
-      align-items: baseline;
-      flex-wrap: wrap;
-      gap: 3px;
-      transition: color 0.15s;
-    }
-    [data-row="role-right"] {
-      display: flex;
-      align-items: baseline;
-      white-space: nowrap;
-      gap: 10px;
-    }
-    [data-field="company"]  { font-weight: 700; font-size: 13px; transition: color 0.15s; }
-    [data-field="title"]    { font-style: italic; font-weight: 400; font-size: 13px; }
-    [data-field="location"] { font-size: 13px; color: var(--text); }
-    [data-field="dates"]    { font-weight: 700; font-size: 13px; }
-
-    ul[data-field="bullets"] {
-      list-style: disc;
-      padding-left: 20px;
-      margin-top: 1px;
-    }
-    ul[data-field="bullets"] li {
-      font-size: 13px;
-      line-height: 1.25;
-      margin-bottom: 1.5px;
-    }
+    [data-row="role-header"] { display: flex; justify-content: space-between; align-items: baseline; }
+    [data-row="role-meta"]   { display: flex; align-items: baseline; flex-wrap: wrap; gap: 3px; transition: color 0.15s; }
+    [data-row="role-right"]  { display: flex; align-items: baseline; white-space: nowrap; gap: 10px; }
+    [data-field="company"]   { font-weight: 700; font-size: 13px; transition: color 0.15s; }
+    [data-field="title"]     { font-style: italic; font-weight: 400; font-size: 13px; }
+    [data-field="location"]  { font-size: 13px; color: var(--text); }
+    [data-field="dates"]     { font-weight: 700; font-size: 13px; }
+    ul[data-field="bullets"] { list-style: disc; padding-left: 20px; margin-top: 1px; }
+    ul[data-field="bullets"] li { font-size: 13px; line-height: 1.25; margin-bottom: 1.5px; }
     [data-type="sub-role"] { margin-top: 3px; }
     [data-type="sub-role"] > [data-row="role-header"] { padding-left: 8px; }
 
-    /* ══════════════════════════════════════
-       5. JOB MODAL — desktop only
-    ══════════════════════════════════════ */
+    /* ── JOB MODAL ── */
     #job-modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 500;
-      align-items: center;
-      justify-content: center;
+      display: none; position: fixed; inset: 0;
+      z-index: 500; align-items: center; justify-content: center;
     }
     #job-modal.open { display: flex; }
-
     #modal-overlay {
-      position: absolute;
-      inset: 0;
+      position: absolute; inset: 0;
       background: rgba(0,0,0,0.4);
-      backdrop-filter: blur(3px);
-      -webkit-backdrop-filter: blur(3px);
+      backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px);
     }
     #modal-box {
-      position: relative;
-      background: var(--bg);
-      color: var(--text);
-      border-radius: 14px;
-      padding: 32px 36px 52px 36px;
-      max-width: 660px;
-      width: calc(100% - 48px);
-      max-height: 82vh;
-      overflow-y: auto;
-      box-shadow: 0 24px 64px rgba(0,0,0,0.22);
-      z-index: 1;
+      position: relative; background: var(--bg); color: var(--text);
+      border-radius: 14px; padding: 32px 36px 52px 36px;
+      max-width: 660px; width: calc(100% - 48px);
+      max-height: 82vh; overflow-y: auto;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.22); z-index: 1;
     }
     #modal-close {
-      position: absolute;
-      top: 14px; right: 16px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: var(--text);
-      opacity: 0.35;
-      font-size: 17px;
-      line-height: 1;
-      padding: 6px 7px;
-      border-radius: 50%;
+      position: absolute; top: 14px; right: 16px;
+      background: none; border: none; cursor: pointer;
+      color: var(--text); opacity: 0.35; font-size: 17px;
+      line-height: 1; padding: 6px 7px; border-radius: 50%;
       transition: opacity 0.15s, background 0.15s;
     }
     #modal-close:hover { opacity: 1; background: var(--toggle-bg); }
-
-    #modal-nav {
-      position: absolute;
-      bottom: 14px;
-      right: 14px;
-      display: flex;
-      gap: 4px;
-    }
+    #modal-nav { position: absolute; bottom: 14px; right: 14px; display: flex; gap: 4px; }
     .modal-nav-btn {
-      background: var(--toggle-bg);
-      border: none;
-      border-radius: 50%;
-      width: 28px; height: 28px;
-      cursor: pointer;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: var(--toggle-bg); border: none; border-radius: 50%;
+      width: 28px; height: 28px; cursor: pointer; color: var(--text);
+      display: flex; align-items: center; justify-content: center;
       transition: background 0.15s;
     }
     .modal-nav-btn:hover { background: var(--toggle-hover); }
     .modal-nav-btn:disabled { opacity: 0.2; cursor: default; pointer-events: none; }
     .modal-nav-btn svg { width: 13px; height: 13px; }
-
     #modal-counter {
-      position: absolute;
-      bottom: 20px; left: 36px;
+      position: absolute; bottom: 20px; left: 36px;
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 11px;
-      letter-spacing: 0.08em;
-      opacity: 0.3;
+      font-size: 11px; letter-spacing: 0.08em; opacity: 0.3;
     }
 
-    /* Modal content typography — bigger */
+    /* ── MODAL LOGO HEADER ── */
+    #modal-logo-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+    #modal-logo {
+      width: 56px;
+      height: 56px;
+      object-fit: contain;
+      border-radius: 12px;
+      background: #ffffff;
+      border: 1px solid rgba(0,0,0,0.09);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      flex-shrink: 0;
+      padding: 6px;
+    }
+    #modal-text-head { flex: 1; min-width: 0; padding-top: 2px; }
+
+    /* ── MODAL TYPOGRAPHY ── */
     #modal-content [data-row="role-meta"] {
       display: flex; align-items: baseline;
-      flex-wrap: wrap; gap: 6px;
-      margin-bottom: 5px;
+      flex-wrap: wrap; gap: 5px; margin-bottom: 3px;
     }
     #modal-content [data-field="company"] { font-weight: 700; font-size: 22px; color: var(--name); }
     #modal-content [data-field="title"]   { font-style: italic; font-size: 15px; opacity: 0.8; }
     #modal-content [data-row="role-right"] {
-      display: flex; gap: 14px;
-      margin-bottom: 18px;
+      display: flex; gap: 14px; margin-bottom: 18px;
       opacity: 0.55; font-size: 13px;
-      white-space: normal; flex-wrap: wrap;
-      align-items: baseline;
+      white-space: normal; flex-wrap: wrap; align-items: baseline;
     }
     #modal-content [data-field="dates"] { font-weight: 700; font-size: 13px; }
-    #modal-content ul[data-field="bullets"] {
-      padding-left: 22px;
-    }
-    #modal-content ul[data-field="bullets"] li {
-      font-size: 15px;
-      line-height: 1.6;
-      margin-bottom: 9px;
-    }
+    #modal-content ul[data-field="bullets"] { padding-left: 22px; }
+    #modal-content ul[data-field="bullets"] li { font-size: 15px; line-height: 1.6; margin-bottom: 9px; }
 
-    /* Desktop: clickable row-header hint */
+    /* ── DESKTOP HOVER HINT ── */
     @media (min-width: 641px) {
       article[data-type="job"] [data-row="role-header"] {
-        cursor: pointer;
-        user-select: none;
-        border-radius: 4px;
-        padding: 2px 4px;
-        margin: -2px -4px;
+        cursor: pointer; user-select: none;
+        border-radius: 4px; padding: 2px 4px; margin: -2px -4px;
         transition: background 0.15s;
       }
-      article[data-type="job"] [data-row="role-header"]:hover {
-        background: var(--toggle-bg);
-      }
-      article[data-type="job"] [data-row="role-header"]:hover [data-field="company"] {
-        color: var(--name);
-      }
+      article[data-type="job"] [data-row="role-header"]:hover { background: var(--toggle-bg); }
+      article[data-type="job"] [data-row="role-header"]:hover [data-field="company"] { color: var(--name); }
     }
 
-    /* ══════════════════════════════════════
-       MOBILE FOCUS / CENTER MODE
-    ══════════════════════════════════════ */
-    body.mobile-focus article[data-type="job"] {
-      opacity: 0.2;
-      transition: opacity 0.25s;
-    }
-    body.mobile-focus article[data-type="job"].focused {
-      opacity: 1;
-    }
+    /* ── MOBILE FOCUS MODE ── */
+    body.mobile-focus article[data-type="job"] { opacity: 0.2; transition: opacity 0.25s; }
+    body.mobile-focus article[data-type="job"].focused { opacity: 1; }
 
-    /* ══════════════════════════════════════
-       EDUCATION
-    ══════════════════════════════════════ */
+    /* ── EDUCATION ── */
     article[data-type="education"] { margin-bottom: 3px; }
     [data-field="school"] { font-weight: 700; font-size: 13px; }
     [data-field="degree"] { font-style: italic; font-size: 13px; }
 
-    /* ══════════════════════════════════════
-       EXTRA
-    ══════════════════════════════════════ */
-    [data-label="subsection-title"] {
-      font-weight: 700; font-size: 12px; margin-bottom: 1px; margin-top: 2px;
-    }
+    /* ── EXTRA ── */
+    [data-label="subsection-title"] { font-weight: 700; font-size: 12px; margin-bottom: 1px; margin-top: 2px; }
     [data-type="extra-row"] { font-size: 13px; line-height: 1.2; margin-bottom: 0; }
 
-    /* ══════════════════════════════════════
-       MOBILE
-    ══════════════════════════════════════ */
+    /* ── MOBILE ── */
     @media (max-width: 640px) {
       body { padding: 16px 14px; font-size: 14px; }
       header[data-section="header"] { flex-direction: column; align-items: flex-start; gap: 6px; margin-bottom: 10px; }
@@ -389,32 +272,23 @@
 </head>
 <body>
 
-  <!-- 1: Scroll progress bar -->
   <div id="progress-bar"></div>
 
-  <!-- 2: Theme toggle — monochromatic SVG icons -->
   <button id="theme-toggle" class="fixed-btn" aria-label="Toggle day/night mode">
-    <!-- Moon: shown in light mode -->
     <svg id="icon-moon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
       <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
     </svg>
-    <!-- Sun: shown in dark mode -->
     <svg id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
          stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" style="display:none">
       <circle cx="12" cy="12" r="5"/>
-      <line x1="12" y1="1"     x2="12" y2="3"/>
-      <line x1="12" y1="21"    x2="12" y2="23"/>
-      <line x1="4.22" y1="4.22"  x2="5.64"  y2="5.64"/>
-      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-      <line x1="1"  y1="12"    x2="3"  y2="12"/>
-      <line x1="21" y1="12"    x2="23" y2="12"/>
-      <line x1="4.22"  y1="19.78" x2="5.64"  y2="18.36"/>
-      <line x1="18.36" y1="5.64"  x2="19.78" y2="4.22"/>
+      <line x1="12" y1="1" x2="12" y2="3"/> <line x1="12" y1="21" x2="12" y2="23"/>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/> <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+      <line x1="1" y1="12" x2="3" y2="12"/> <line x1="21" y1="12" x2="23" y2="12"/>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/> <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
     </svg>
   </button>
 
-  <!-- Print button — monochromatic SVG -->
-  <button id="print-btn" class="fixed-btn" aria-label="Print resume" title="Print / Save as PDF">
+  <button id="print-btn" class="fixed-btn" aria-label="Print resume">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
          stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
       <polyline points="6 9 6 2 18 2 18 9"/>
@@ -423,10 +297,8 @@
     </svg>
   </button>
 
-  <!-- Copy toast -->
   <div id="toast" role="status" aria-live="polite"></div>
 
-  <!-- 5: Job detail modal (desktop) -->
   <div id="job-modal" role="dialog" aria-modal="true" aria-label="Job details">
     <div id="modal-overlay"></div>
     <div id="modal-box">
@@ -435,14 +307,12 @@
       <div id="modal-counter"></div>
       <div id="modal-nav">
         <button class="modal-nav-btn" id="modal-prev" aria-label="Previous role">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-               stroke-linecap="round" stroke-linejoin="round">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="18 15 12 9 6 15"/>
           </svg>
         </button>
         <button class="modal-nav-btn" id="modal-next" aria-label="Next role">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-               stroke-linecap="round" stroke-linejoin="round">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="6 9 12 15 18 9"/>
           </svg>
         </button>
@@ -450,9 +320,6 @@
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       HEADER
-  ═══════════════════════════════════ -->
   <header id="site-header" data-section="header">
     <span data-field="name" data-font="space-grotesk">Bill Kelly</span>
     <span data-field="contact" data-font="space-grotesk">
@@ -464,9 +331,6 @@
     </span>
   </header>
 
-  <!-- ═══════════════════════════════════
-       SUMMARY
-  ═══════════════════════════════════ -->
   <section id="section-summary" data-section="summary">
     <div data-label="section-title" data-font="space-grotesk">Summary</div>
     <hr />
@@ -475,9 +339,6 @@
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════
-       SKILLS
-  ═══════════════════════════════════ -->
   <section id="section-skills" data-section="skills">
     <div data-label="section-title" data-font="space-grotesk">Skills</div>
     <hr />
@@ -486,17 +347,14 @@
     <div data-label="subsection-title">AI/ML</div>
     <div data-type="extra-row">LLM Application Design, Prompt Engineering, AI Agent Workflows, Claude Code/CLI, AI UX Patterns, Model Evaluation</div>
     <div data-label="subsection-title">Technical</div>
-    <div data-type="extra-row">SQL, BigQuery, Snowflake, JavaScript, React, Python, Figma, Tableau, HTML/CSS, AWS, Google Suite, Webflow, cpanel</div>
+    <div data-type="extra-row">SQL, BigQuery, Snowflake, JavaScript, React, Python, Figma, Tableau, HTML/CSS, AWS, Google Suite, Webflow, cpanel, HL7, FHIR, D.0/F6</div>
   </section>
 
-  <!-- ═══════════════════════════════════
-       EXPERIENCE
-  ═══════════════════════════════════ -->
   <section id="section-experience" data-section="experience">
     <div data-label="section-title" data-font="space-grotesk">Experience</div>
     <hr />
 
-    <article data-type="job">
+    <article data-type="job" data-logo="logos/airxhealth.png">
       <div data-row="role-header">
         <div data-row="role-meta">
           <span data-field="company">Airx Health</span>&nbsp;<span data-field="title">Founder &amp; Head of Product</span>
@@ -515,7 +373,7 @@
       </ul>
     </article>
 
-    <article data-type="job">
+    <article data-type="job" data-logo="logos/butterfly.svg">
       <div data-row="role-header">
         <div data-row="role-meta">
           <span data-field="company">Butterfly Network</span>&nbsp;<span data-field="title">Product Manager, Growth Initiatives</span>
@@ -533,7 +391,7 @@
       </ul>
     </article>
 
-    <article data-type="job">
+    <article data-type="job" data-logo="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://disneyplus.com&size=128">
       <div data-row="role-header">
         <div data-row="role-meta">
           <span data-field="company">Disney Streaming</span>&nbsp;<span data-field="title">Product Manager, Growth</span>
@@ -550,7 +408,7 @@
       </ul>
     </article>
 
-    <article data-type="job">
+    <article data-type="job" data-logo="logos/pinterest.png">
       <div data-row="role-header">
         <div data-row="role-meta">
           <span data-field="company">Pinterest</span>&nbsp;<span data-field="title">Operations Product Lead, Partner Operations</span>
@@ -568,7 +426,7 @@
       </ul>
     </article>
 
-    <article data-type="job">
+    <article data-type="job" data-logo="logos/pinterest.png">
       <div data-row="role-header">
         <div data-row="role-meta">
           <span data-field="company">Pinterest</span>&nbsp;<span data-field="title">Product Specialist, Partner Operations</span>
@@ -585,7 +443,7 @@
       </ul>
     </article>
 
-    <article data-type="job">
+    <article data-type="job" data-logo="logos/google.png">
       <div data-row="role-header">
         <div data-row="role-meta">
           <span data-field="company">Google</span>&nbsp;<span data-field="title">Technical Product Specialist, Search</span>
@@ -601,7 +459,7 @@
       </ul>
     </article>
 
-    <article data-type="job">
+    <article data-type="job" data-logo="logos/zonerapp.png">
       <div data-row="role-header">
         <div data-row="role-meta">
           <span data-field="company">ZonerApp</span>&nbsp;<span data-field="title">Co-founder, COO</span>
@@ -616,7 +474,7 @@
       </ul>
     </article>
 
-    <article data-type="job">
+    <article data-type="job" data-logo="logos/kgs_main.jpg">
       <div data-row="role-header">
         <div data-row="role-meta">
           <span data-field="company">KGS-Alpha Capital Markets</span>&nbsp;<span data-field="title">Intern</span>
@@ -633,9 +491,6 @@
 
   </section>
 
-  <!-- ═══════════════════════════════════
-       EDUCATION
-  ═══════════════════════════════════ -->
   <section id="section-education" data-section="education">
     <div data-label="section-title" data-font="space-grotesk">Education</div>
     <hr />
@@ -674,9 +529,6 @@
     </article>
   </section>
 
-  <!-- ═══════════════════════════════════
-       EXTRA
-  ═══════════════════════════════════ -->
   <section id="section-extra" data-section="extra">
     <div data-label="section-title" data-font="space-grotesk">Extra</div>
     <hr />
@@ -686,13 +538,11 @@
   </section>
 
   <script>
-    /* ─────────────────────────────────────
-       THEME TOGGLE — monochromatic SVG swap
-    ───────────────────────────────────── */
-    const themeBtn   = document.getElementById('theme-toggle');
-    const iconMoon   = document.getElementById('icon-moon');
-    const iconSun    = document.getElementById('icon-sun');
-    const root       = document.documentElement;
+    /* THEME TOGGLE */
+    const themeBtn    = document.getElementById('theme-toggle');
+    const iconMoon    = document.getElementById('icon-moon');
+    const iconSun     = document.getElementById('icon-sun');
+    const root        = document.documentElement;
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
     function isDark() { return root.dataset.theme === 'dark' || (!root.dataset.theme && prefersDark.matches); }
     function updateTheme() {
@@ -704,56 +554,39 @@
     prefersDark.addEventListener('change', updateTheme);
     updateTheme();
 
-    /* ─────────────────────────────────────
-       1. SCROLL PROGRESS BAR
-    ───────────────────────────────────── */
+    /* SCROLL PROGRESS */
     const bar = document.getElementById('progress-bar');
     window.addEventListener('scroll', () => {
-      const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
-      bar.style.width = Math.min(pct, 100) + '%';
+      bar.style.width = Math.min(window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100, 100) + '%';
     }, { passive: true });
 
-    /* ─────────────────────────────────────
-       PRINT BUTTON
-    ───────────────────────────────────── */
+    /* PRINT */
     document.getElementById('print-btn').addEventListener('click', () => window.print());
 
-    /* ─────────────────────────────────────
-       4. COPY ICON + CLIPBOARD ON CONTACTS
-    ───────────────────────────────────── */
+    /* COPY CONTACTS */
     const COPY_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
       stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
       <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
       <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
     </svg>`;
-
     const toast = document.getElementById('toast');
     let toastTimer;
     function showToast(msg) {
-      toast.textContent = msg;
-      toast.classList.add('show');
+      toast.textContent = msg; toast.classList.add('show');
       clearTimeout(toastTimer);
       toastTimer = setTimeout(() => toast.classList.remove('show'), 2000);
     }
-
     document.querySelectorAll('[data-copy]').forEach(el => {
-      // Inject copy icon
-      const iconSpan = document.createElement('span');
-      iconSpan.className = 'copy-icon';
-      iconSpan.innerHTML = COPY_SVG;
-      el.appendChild(iconSpan);
-
+      const s = document.createElement('span'); s.className = 'copy-icon'; s.innerHTML = COPY_SVG;
+      el.appendChild(s);
       el.addEventListener('click', e => {
         e.preventDefault();
-        navigator.clipboard.writeText(el.dataset.copy)
-          .then(() => showToast('Copied: ' + el.dataset.copy));
+        navigator.clipboard.writeText(el.dataset.copy).then(() => showToast('Copied: ' + el.dataset.copy));
       });
     });
 
-    /* ─────────────────────────────────────
-       5. JOB MODAL — desktop
-    ───────────────────────────────────── */
-    const isMobile = () => window.innerWidth <= 640;
+    /* JOB MODAL with LOGO */
+    const isMobile  = () => window.innerWidth <= 640;
     const modal        = document.getElementById('job-modal');
     const modalContent = document.getElementById('modal-content');
     const modalCounter = document.getElementById('modal-counter');
@@ -767,27 +600,36 @@
       currentIdx = idx;
       const job = jobs[idx];
 
-      const company  = job.querySelector('[data-field="company"]').innerHTML;
-      const title    = job.querySelector('[data-field="title"]').innerHTML;
-      const locEl    = job.querySelector('[data-field="location"]');
-      const datesEl  = job.querySelector('[data-field="dates"]');
+      const company   = job.querySelector('[data-field="company"]').innerHTML;
+      const title     = job.querySelector('[data-field="title"]').innerHTML;
+      const locEl     = job.querySelector('[data-field="location"]');
+      const datesEl   = job.querySelector('[data-field="dates"]');
       const bulletsEl = job.querySelector('ul[data-field="bullets"]');
+      const logoUrl   = job.dataset.logo || '';
 
-      let html = `<div data-row="role-meta">
-        <span data-field="company">${company}</span>
-        &nbsp;<span data-field="title">${title}</span>
-      </div>
-      <div data-row="role-right">
-        ${locEl   ? `<span data-field="location">${locEl.innerHTML}</span>` : ''}
-        ${datesEl ? `<span data-field="dates">${datesEl.innerHTML}</span>`  : ''}
-      </div>`;
+      const logoHtml = logoUrl
+        ? `<img id="modal-logo" src="${logoUrl}" alt="${company} logo" />`
+        : '';
+
+      let html = `
+        <div id="modal-logo-row">
+          ${logoHtml}
+          <div id="modal-text-head">
+            <div data-row="role-meta">
+              <span data-field="company">${company}</span>&nbsp;<span data-field="title">${title}</span>
+            </div>
+            <div data-row="role-right">
+              ${locEl   ? `<span data-field="location">${locEl.innerHTML}</span>`  : ''}
+              ${datesEl ? `<span data-field="dates">${datesEl.innerHTML}</span>`   : ''}
+            </div>
+          </div>
+        </div>`;
       if (bulletsEl) html += bulletsEl.outerHTML;
 
       modalContent.innerHTML = html;
       modalCounter.textContent = `${idx + 1} / ${jobs.length}`;
       modalPrev.disabled = idx === 0;
       modalNext.disabled = idx === jobs.length - 1;
-
       modal.classList.add('open');
       document.body.style.overflow = 'hidden';
     }
@@ -798,7 +640,6 @@
       currentIdx = -1;
     }
 
-    // Open on desktop role-header click
     jobs.forEach((job, idx) => {
       job.querySelector('[data-row="role-header"]').addEventListener('click', () => {
         if (isMobile()) return;
@@ -810,7 +651,6 @@
     modalNext.addEventListener('click', () => openModal(currentIdx + 1));
     document.getElementById('modal-close').addEventListener('click', closeModal);
     document.getElementById('modal-overlay').addEventListener('click', closeModal);
-
     document.addEventListener('keydown', e => {
       if (!modal.classList.contains('open')) return;
       if (e.key === 'Escape') { closeModal(); return; }
@@ -818,18 +658,14 @@
       if (e.key === 'ArrowDown') { e.preventDefault(); openModal(currentIdx + 1); }
     });
 
-    /* ─────────────────────────────────────
-       MOBILE: focus / center mode
-       Tap a job → dim others + scroll to center
-    ───────────────────────────────────── */
+    /* MOBILE FOCUS MODE */
     jobs.forEach(job => {
       job.querySelector('[data-row="role-header"]').addEventListener('click', e => {
         if (!isMobile()) return;
-        const alreadyFocused = job.classList.contains('focused');
-        // Clear state
+        const already = job.classList.contains('focused');
         jobs.forEach(j => j.classList.remove('focused'));
         document.body.classList.remove('mobile-focus');
-        if (!alreadyFocused) {
+        if (!already) {
           job.classList.add('focused');
           document.body.classList.add('mobile-focus');
           job.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -837,8 +673,6 @@
         e.stopPropagation();
       });
     });
-
-    // Tap outside any job dismisses focus mode on mobile
     document.addEventListener('click', e => {
       if (!isMobile() || !document.body.classList.contains('mobile-focus')) return;
       if (!e.target.closest('article[data-type="job"]')) {

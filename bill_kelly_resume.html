@@ -290,6 +290,26 @@
       opacity: 0.3;
     }
 
+    /* ── Modal logo header ── */
+    #modal-logo-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+    #modal-logo {
+      width: 56px;
+      height: 56px;
+      object-fit: contain;
+      border-radius: 12px;
+      background: #ffffff;
+      border: 1px solid rgba(0,0,0,0.09);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      flex-shrink: 0;
+      padding: 6px;
+    }
+    #modal-text-head { flex: 1; min-width: 0; padding-top: 2px; }
+
     /* Modal content typography — bigger */
     #modal-content [data-row="role-meta"] {
       display: flex; align-items: baseline;
@@ -486,7 +506,7 @@
     <div data-label="subsection-title">AI/ML</div>
     <div data-type="extra-row">LLM Application Design, Prompt Engineering, AI Agent Workflows, Claude Code/CLI, AI UX Patterns, Model Evaluation</div>
     <div data-label="subsection-title">Technical</div>
-    <div data-type="extra-row">SQL, BigQuery, Snowflake, JavaScript, React, Python, Figma, Tableau, HTML/CSS, AWS, Google Suite, Webflow, cpanel</div>
+    <div data-type="extra-row">SQL, BigQuery, Snowflake, JavaScript, React, Python, Figma, Tableau, HTML/CSS, AWS, Google Suite, Webflow, cpanel, HL7, FHIR, D.0/F6</div>
   </section>
 
   <!-- ═══════════════════════════════════
@@ -496,7 +516,7 @@
     <div data-label="section-title" data-font="space-grotesk">Experience</div>
     <hr />
 
-    <article data-type="job">
+    <article data-type="job" data-logo="logos/airxhealth.png">
       <div data-row="role-header">
         <div data-row="role-meta">
           <span data-field="company">Airx Health</span>&nbsp;<span data-field="title">Founder &amp; Head of Product</span>
@@ -515,7 +535,7 @@
       </ul>
     </article>
 
-    <article data-type="job">
+    <article data-type="job" data-logo="logos/butterfly.svg">
       <div data-row="role-header">
         <div data-row="role-meta">
           <span data-field="company">Butterfly Network</span>&nbsp;<span data-field="title">Product Manager, Growth Initiatives</span>
@@ -533,7 +553,7 @@
       </ul>
     </article>
 
-    <article data-type="job">
+    <article data-type="job" data-logo="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://disneyplus.com&size=128">
       <div data-row="role-header">
         <div data-row="role-meta">
           <span data-field="company">Disney Streaming</span>&nbsp;<span data-field="title">Product Manager, Growth</span>
@@ -550,7 +570,7 @@
       </ul>
     </article>
 
-    <article data-type="job">
+    <article data-type="job" data-logo="logos/pinterest.png">
       <div data-row="role-header">
         <div data-row="role-meta">
           <span data-field="company">Pinterest</span>&nbsp;<span data-field="title">Operations Product Lead, Partner Operations</span>
@@ -568,7 +588,7 @@
       </ul>
     </article>
 
-    <article data-type="job">
+    <article data-type="job" data-logo="logos/pinterest.png">
       <div data-row="role-header">
         <div data-row="role-meta">
           <span data-field="company">Pinterest</span>&nbsp;<span data-field="title">Product Specialist, Partner Operations</span>
@@ -585,7 +605,7 @@
       </ul>
     </article>
 
-    <article data-type="job">
+    <article data-type="job" data-logo="logos/google.png">
       <div data-row="role-header">
         <div data-row="role-meta">
           <span data-field="company">Google</span>&nbsp;<span data-field="title">Technical Product Specialist, Search</span>
@@ -601,7 +621,7 @@
       </ul>
     </article>
 
-    <article data-type="job">
+    <article data-type="job" data-logo="logos/zonerapp.png">
       <div data-row="role-header">
         <div data-row="role-meta">
           <span data-field="company">ZonerApp</span>&nbsp;<span data-field="title">Co-founder, COO</span>
@@ -616,7 +636,7 @@
       </ul>
     </article>
 
-    <article data-type="job">
+    <article data-type="job" data-logo="logos/kgs_main.jpg">
       <div data-row="role-header">
         <div data-row="role-meta">
           <span data-field="company">KGS-Alpha Capital Markets</span>&nbsp;<span data-field="title">Intern</span>
@@ -772,14 +792,24 @@
       const datesEl   = job.querySelector('[data-field="dates"]');
       const bulletsEl = job.querySelector('ul[data-field="bullets"]');
 
-      let html = `<div data-row="role-meta">
-        <span data-field="company">${company}</span>
-        &nbsp;<span data-field="title">${title}</span>
-      </div>
-      <div data-row="role-right">
-        ${locEl   ? `<span data-field="location">${locEl.innerHTML}</span>`   : ''}
-        ${datesEl ? `<span data-field="dates">${datesEl.innerHTML}</span>`    : ''}
-      </div>`;
+      const logoUrl = job.dataset.logo || '';
+      const logoHtml = logoUrl
+        ? `<img id="modal-logo" src="${logoUrl}" alt="${company} logo" />`
+        : '';
+
+      let html = `
+        <div id="modal-logo-row">
+          ${logoHtml}
+          <div id="modal-text-head">
+            <div data-row="role-meta">
+              <span data-field="company">${company}</span>&nbsp;<span data-field="title">${title}</span>
+            </div>
+            <div data-row="role-right">
+              ${locEl   ? `<span data-field="location">${locEl.innerHTML}</span>`  : ''}
+              ${datesEl ? `<span data-field="dates">${datesEl.innerHTML}</span>`   : ''}
+            </div>
+          </div>
+        </div>`;
       if (bulletsEl) html += bulletsEl.outerHTML;
 
       modalContent.innerHTML = html;
