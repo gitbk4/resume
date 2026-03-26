@@ -505,6 +505,72 @@
     @media (max-width: 640px) {
       #story-box { padding: 20px 10px 18px; }
     }
+    /* ── SCHOOL LINKS ── */
+    [data-field="school"] a {
+      color: inherit; text-decoration: underline;
+      text-decoration-color: rgba(128,128,128,0.35);
+      text-underline-offset: 2px; transition: color 0.15s, text-decoration-color 0.15s;
+    }
+    [data-field="school"] a:hover { color: var(--name); text-decoration-color: var(--name); }
+
+    /* ── PERSONAL PHOTOS CAROUSEL ── */
+    @media print { #section-personal { display: none; } }
+    .photo-carousel {
+      display: flex; gap: 8px;
+      overflow-x: auto; scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding: 2px 0 10px; scrollbar-width: none;
+      margin-left: 10px;
+    }
+    .photo-carousel::-webkit-scrollbar { display: none; }
+    .photo-tile {
+      flex-shrink: 0; width: 150px; height: 150px;
+      border-radius: 10px; overflow: hidden;
+      scroll-snap-align: start; cursor: pointer;
+      background: var(--rule); position: relative;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .photo-tile:hover { transform: scale(1.03); box-shadow: 0 8px 24px rgba(0,0,0,0.18); }
+    .photo-tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* ── PHOTO LIGHTBOX ── */
+    #photo-modal {
+      display: none; position: fixed; inset: 0; z-index: 9000;
+      align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.9);
+    }
+    #photo-modal.open { display: flex; }
+    #photo-modal-img {
+      max-width: 90vw; max-height: 85vh; object-fit: contain;
+      border-radius: 8px; box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+      user-select: none;
+    }
+    #photo-close {
+      position: absolute; top: 14px; right: 18px;
+      background: rgba(255,255,255,0.12); border: none; color: #fff;
+      font-size: 17px; cursor: pointer; padding: 5px 9px;
+      border-radius: 7px; transition: background 0.15s; line-height: 1;
+    }
+    #photo-close:hover { background: rgba(255,255,255,0.25); }
+    .photo-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.1); border: none; color: #fff;
+      font-size: 28px; cursor: pointer; padding: 14px 18px;
+      border-radius: 10px; transition: background 0.15s; user-select: none;
+    }
+    .photo-nav:hover { background: rgba(255,255,255,0.22); }
+    #photo-prev { left: 14px; }
+    #photo-next { right: 14px; }
+    #photo-counter {
+      position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%);
+      color: rgba(255,255,255,0.5);
+      font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.06em;
+    }
+    @media (max-width: 640px) {
+      .photo-carousel { margin-left: 0; }
+      .photo-tile { width: 130px; height: 130px; }
+      .photo-nav { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -744,7 +810,7 @@
     <article data-type="education">
       <div data-row="role-header">
         <div data-row="role-meta">
-          <span data-field="school">Emory University</span>&nbsp;<span data-field="degree">Bachelor of Arts in Economics, Italian Minor</span>
+          <span data-field="school"><a href="https://www.emory.edu" target="_blank" rel="noopener">Emory University</a></span>&nbsp;<span data-field="degree">Bachelor of Arts in Economics, Italian Minor</span>
         </div>
         <div data-row="role-right">
           <span data-field="location">Atlanta, GA</span>
@@ -755,7 +821,7 @@
     <article data-type="education" style="padding-left:12px;">
       <div data-row="role-header">
         <div data-row="role-meta">
-          <span data-field="school">Bocconi &amp; Cattolica Universities</span>&nbsp;<span data-field="degree">Labor Economics, Italian Language</span>
+          <span data-field="school"><a href="https://www.unibocconi.eu" target="_blank" rel="noopener">Bocconi</a> &amp; <a href="https://www.unicatt.it" target="_blank" rel="noopener">Cattolica</a> Universities</span>&nbsp;<span data-field="degree">Labor Economics, Italian Language</span>
         </div>
         <div data-row="role-right">
           <span data-field="location">Milan, Italy</span>
@@ -766,7 +832,7 @@
     <article data-type="education">
       <div data-row="role-header">
         <div data-row="role-meta">
-          <span data-field="school">Berkshire School</span>&nbsp;<span data-field="degree">High School</span>
+          <span data-field="school"><a href="https://www.berkshire.edu" target="_blank" rel="noopener">Berkshire School</a></span>&nbsp;<span data-field="degree">High School</span>
         </div>
         <div data-row="role-right">
           <span data-field="location">Sheffield, MA</span>
@@ -783,6 +849,31 @@
       Sailing, Diving, Emergency Medicine, Skateboarding, Surfing, Yoga, Graphic/Clothing/Product Design, Formula 1
     </div>
   </section>
+
+  <section id="section-personal" data-section="personal">
+    <div data-label="section-title" data-font="space-grotesk">Personal</div>
+    <hr />
+    <!-- Replace src paths with your own photos, e.g. src="photos/sailing.jpg" -->
+    <div class="photo-carousel" id="photo-carousel">
+      <div class="photo-tile"><img src="https://picsum.photos/seed/bk01/400/400" alt=""></div>
+      <div class="photo-tile"><img src="https://picsum.photos/seed/bk02/400/400" alt=""></div>
+      <div class="photo-tile"><img src="https://picsum.photos/seed/bk03/400/400" alt=""></div>
+      <div class="photo-tile"><img src="https://picsum.photos/seed/bk04/400/400" alt=""></div>
+      <div class="photo-tile"><img src="https://picsum.photos/seed/bk05/400/400" alt=""></div>
+      <div class="photo-tile"><img src="https://picsum.photos/seed/bk06/400/400" alt=""></div>
+      <div class="photo-tile"><img src="https://picsum.photos/seed/bk07/400/400" alt=""></div>
+      <div class="photo-tile"><img src="https://picsum.photos/seed/bk08/400/400" alt=""></div>
+    </div>
+  </section>
+
+  <!-- Photo lightbox -->
+  <div id="photo-modal" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <button id="photo-close" aria-label="Close photo">✕</button>
+    <button class="photo-nav" id="photo-prev" aria-label="Previous photo">&#8249;</button>
+    <img id="photo-modal-img" src="" alt="">
+    <button class="photo-nav" id="photo-next" aria-label="Next photo">&#8250;</button>
+    <div id="photo-counter"></div>
+  </div>
 
   <!-- ═══════════════════════════════════
        STORY MODE MODAL
@@ -1231,6 +1322,40 @@
       if (e.key === ' ') { e.preventDefault(); if (storyPaused) resumeStory(); else pauseStory(); return; }
       if (e.key === 'ArrowRight') { e.preventDefault(); showPhase(storyPhase + 1); }
       if (e.key === 'ArrowLeft')  { e.preventDefault(); showPhase(storyPhase - 1); }
+    });
+
+    /* ─────────────────────────────────────
+       PERSONAL PHOTOS — carousel + lightbox
+    ───────────────────────────────────── */
+    const photoModal    = document.getElementById('photo-modal');
+    const photoModalImg = document.getElementById('photo-modal-img');
+    const photoCounter  = document.getElementById('photo-counter');
+    const photoTiles    = [...document.querySelectorAll('.photo-tile')];
+    let currentPhoto = 0;
+
+    function openPhoto(idx) {
+      currentPhoto = ((idx % photoTiles.length) + photoTiles.length) % photoTiles.length;
+      photoModalImg.src = photoTiles[currentPhoto].querySelector('img').src;
+      photoCounter.textContent = `${currentPhoto + 1} / ${photoTiles.length}`;
+      photoModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closePhoto() {
+      photoModal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    photoTiles.forEach((tile, i) => tile.addEventListener('click', () => openPhoto(i)));
+    document.getElementById('photo-close').addEventListener('click', closePhoto);
+    document.getElementById('photo-prev').addEventListener('click', e => { e.stopPropagation(); openPhoto(currentPhoto - 1); });
+    document.getElementById('photo-next').addEventListener('click', e => { e.stopPropagation(); openPhoto(currentPhoto + 1); });
+    photoModal.addEventListener('click', e => { if (e.target === photoModal) closePhoto(); });
+
+    document.addEventListener('keydown', e => {
+      if (!photoModal.classList.contains('open')) return;
+      if (e.key === 'Escape') closePhoto();
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); openPhoto(currentPhoto - 1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); openPhoto(currentPhoto + 1); }
     });
   </script>
 
