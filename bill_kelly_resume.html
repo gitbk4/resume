@@ -240,9 +240,39 @@
     [data-field="school"] { font-weight: 700; font-size: 13px; }
     [data-field="degree"] { font-style: italic; font-size: 13px; }
 
-    /* ── EXTRA ── */
+    /* ── EXTRA (interest grid) ── */
     [data-label="subsection-title"] { font-weight: 700; font-size: 12px; margin-bottom: 1px; margin-top: 2px; }
     [data-type="extra-row"] { font-size: 13px; line-height: 1.2; margin-bottom: 0; }
+    .interest-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 7px 28px; padding-left: 10px;
+    }
+    .interest-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600; font-size: 12px; margin-bottom: 1px;
+    }
+    .interest-detail { font-size: 11.5px; opacity: 0.72; line-height: 1.45; }
+
+    /* ── CURRENTLY ── */
+    .currently-list {
+      display: flex; flex-direction: column;
+      gap: 5px; padding-left: 10px;
+    }
+    .currently-item { display: flex; gap: 10px; align-items: baseline; }
+    .currently-cat {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600; font-size: 10.5px;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      opacity: 0.45; flex-shrink: 0; min-width: 92px;
+    }
+    .currently-desc { font-size: 12px; line-height: 1.5; }
+    @media print { #section-currently { display: none; } }
+
+    @media (max-width: 640px) {
+      .interest-grid { grid-template-columns: 1fr; }
+      .currently-item { flex-direction: column; gap: 1px; }
+      .currently-cat { min-width: auto; }
+    }
 
     /* ── MOBILE ── */
     @media (max-width: 640px) {
@@ -524,14 +554,24 @@
     }
     .photo-carousel::-webkit-scrollbar { display: none; }
     .photo-tile {
-      flex-shrink: 0; width: 150px; height: 150px;
-      border-radius: 10px; overflow: hidden;
+      flex-shrink: 0; width: 150px;
+      border-radius: 10px;
       scroll-snap-align: start; cursor: pointer;
-      background: var(--rule); position: relative;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      background: transparent; position: relative;
+      transition: transform 0.15s ease;
     }
-    .photo-tile:hover { transform: scale(1.03); box-shadow: 0 8px 24px rgba(0,0,0,0.18); }
-    .photo-tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .photo-tile:hover { transform: scale(1.02); }
+    .photo-tile img {
+      width: 150px; height: 150px; object-fit: cover;
+      border-radius: 10px; display: block;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.14);
+      transition: box-shadow 0.15s ease;
+    }
+    .photo-tile:hover img { box-shadow: 0 8px 28px rgba(0,0,0,0.22); }
+    .photo-caption {
+      font-size: 10.5px; opacity: 0.6; padding: 4px 2px 0;
+      line-height: 1.3; text-align: center;
+    }
 
     /* ── PHOTO LIGHTBOX ── */
     #photo-modal {
@@ -565,6 +605,13 @@
       position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%);
       color: rgba(255,255,255,0.5);
       font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.06em;
+    }
+    #photo-lightbox-caption {
+      position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+      color: rgba(255,255,255,0.82);
+      font-family: 'IBM Plex Sans', sans-serif; font-size: 12px;
+      text-align: center; max-width: 580px; line-height: 1.45;
+      padding: 0 24px; pointer-events: none;
     }
     @media (max-width: 640px) {
       .photo-carousel { margin-left: 0; }
@@ -843,12 +890,102 @@
   </section>
 
   <section id="section-extra" data-section="extra">
-    <div data-label="section-title" data-font="space-grotesk">Extra</div>
+    <div data-label="section-title" data-font="space-grotesk">Outside Work</div>
     <hr />
-    <div data-type="extra-row">
-      Sailing, Diving, Emergency Medicine, Skateboarding, Surfing, Yoga, Graphic/Clothing/Product Design, Formula 1
+    <div class="interest-grid">
+      <div class="interest-item">
+        <div class="interest-label">Sailing &amp; Water Sports</div>
+        <div class="interest-detail">On the water since age 6. Raced olympic-class dinghies for 20+ years, coached the sport for four — my first job. Diving when the wind is low. Kiteboarding is the next frontier.</div>
+      </div>
+      <div class="interest-item">
+        <div class="interest-label">Emergency Medicine</div>
+        <div class="interest-detail">Currently training as a volunteer hyperbaric chamber operator. Medicine meets the sea.</div>
+      </div>
+      <div class="interest-item">
+        <div class="interest-label">Design &amp; Making</div>
+        <div class="interest-detail">Graphic, clothing, and product design. After a life-changing college course, spent years in a NYC apartment learning pattern cutting, sewing, leather working, embroidery, and weft repair.</div>
+      </div>
+      <div class="interest-item">
+        <div class="interest-label">Yoga</div>
+        <div class="interest-detail">Started at 13, hated it at first. Loved it when it taught me meditation. Need more of it as I get older.</div>
+      </div>
+      <div class="interest-item">
+        <div class="interest-label">Skateboarding</div>
+        <div class="interest-detail">Started late — 21. Longboards, not tricks. Completed the Broadway Bomb in New York twice.</div>
+      </div>
+      <div class="interest-item">
+        <div class="interest-label">Formula 1</div>
+        <div class="interest-detail">Fan since 2004, back when you had to wake up early to catch it on SPEED network.</div>
+      </div>
+      <div class="interest-item">
+        <div class="interest-label">Hiking</div>
+        <div class="interest-detail">High-altitude routes and summit days. The mountains are the one place with no agenda except up.</div>
+      </div>
     </div>
   </section>
+
+  <section id="section-currently" data-section="currently">
+    <div data-label="section-title" data-font="space-grotesk">Currently</div>
+    <hr />
+    <div class="currently-list">
+      <div class="currently-item">
+        <span class="currently-cat">Building</span>
+        <span class="currently-desc">Agentic AI with efficient context reinforcement. The future of B2B AI requires power <em>and</em> efficiency — reinforcing a near-static context window scales far better than quadratic expansion in a chat setting.</span>
+      </div>
+      <div class="currently-item">
+        <span class="currently-cat">Reading</span>
+        <span class="currently-desc">Vintage 70s sci-fi — the utopian vision of an inevitable future where meritocracy, progress, and collaboration come first. Carl Sagan's optimism is a useful antidote. His vision still feels possible.</span>
+      </div>
+      <div class="currently-item">
+        <span class="currently-cat">Obsessing over</span>
+        <span class="currently-desc">Watches and clocks from 1900–1980. The design beauty is obvious. What fascinates me more: our enshrinement of the obsession with measuring the decay of matter and transfer of energy — in metal, glass, and jewels. A market driven entirely by taste-makers.</span>
+      </div>
+      <div class="currently-item">
+        <span class="currently-cat">Nurturing</span>
+        <span class="currently-desc">Foster and rescue dogs with POMDR. Since June 2024 we've fostered and re-homed 11 dogs — and adopted two retired hunting pointers, Scout and Barnes, along the way.</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="section-personal" data-section="personal">
+    <div data-label="section-title" data-font="space-grotesk">Personal</div>
+    <hr />
+    <div class="photo-carousel" id="photo-carousel">
+      <div class="photo-tile">
+        <img src="photos/optimized/Sailing.jpg" alt="Young Bill racing an Optimist dinghy">
+        <div class="photo-caption">10 years old, learning in the bathtub sailboat</div>
+      </div>
+      <div class="photo-tile">
+        <img src="photos/optimized/cosmo_BK.jpg" alt="Bill holding Cosmo the foster puppy">
+        <div class="photo-caption">Our first foster and foster-fail, Cosmo: Blind, Deaf, Smelly, Absolutely Perfect.</div>
+      </div>
+      <div class="photo-tile">
+        <img src="photos/optimized/pointers.jpg" alt="Scout and Barnes the pointer dogs">
+        <div class="photo-caption">The pointers: Scout (Chocolate Roan girl with a red bandana) and Barnes (the best Oreo spotted boy)</div>
+      </div>
+      <div class="photo-tile">
+        <img src="photos/optimized/Hiking_Colorado.jpg" alt="Summit selfie in the Elk Mountains">
+        <div class="photo-caption">Winter Hiking in the Elk Mountains in Colorado</div>
+      </div>
+      <div class="photo-tile">
+        <img src="photos/optimized/Bandana_Down_Scarf_Project.jpg" alt="Handmade bandana patchwork scarf">
+        <div class="photo-caption">A cut-sew project: Organic wool down filled cotton patchwork bandana scarf, photo shot in White Sands, New Mexico</div>
+      </div>
+      <div class="photo-tile">
+        <img src="photos/optimized/Handmade_Leather_Belt.jpg" alt="Handmade suede belt with vintage buckle">
+        <div class="photo-caption">My most recent leather project: a handmade suede belt with vintage silver stone buckle set</div>
+      </div>
+    </div>
+  </section>
+
+  <div id="photo-modal" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <button id="photo-close" aria-label="Close photo">✕</button>
+    <button class="photo-nav" id="photo-prev" aria-label="Previous photo">&#8249;</button>
+    <img id="photo-modal-img" src="" alt="">
+    <button class="photo-nav" id="photo-next" aria-label="Next photo">&#8250;</button>
+    <div id="photo-lightbox-caption"></div>
+    <div id="photo-counter"></div>
+  </div>
 
   <!-- ═══════════════════════════════════
        STORY MODE MODAL
@@ -1302,16 +1439,20 @@
     /* ─────────────────────────────────────
        PERSONAL PHOTOS — carousel + lightbox
     ───────────────────────────────────── */
-    const photoModal    = document.getElementById('photo-modal');
-    const photoModalImg = document.getElementById('photo-modal-img');
-    const photoCounter  = document.getElementById('photo-counter');
-    const photoTiles    = [...document.querySelectorAll('.photo-tile')];
+    const photoModal           = document.getElementById('photo-modal');
+    const photoModalImg        = document.getElementById('photo-modal-img');
+    const photoCounter         = document.getElementById('photo-counter');
+    const photoLightboxCaption = document.getElementById('photo-lightbox-caption');
+    const photoTiles           = [...document.querySelectorAll('.photo-tile')];
     let currentPhoto = 0;
 
     function openPhoto(idx) {
       currentPhoto = ((idx % photoTiles.length) + photoTiles.length) % photoTiles.length;
-      photoModalImg.src = photoTiles[currentPhoto].querySelector('img').src;
+      const tile = photoTiles[currentPhoto];
+      photoModalImg.src = tile.querySelector('img').src;
       photoCounter.textContent = `${currentPhoto + 1} / ${photoTiles.length}`;
+      const cap = tile.querySelector('.photo-caption');
+      photoLightboxCaption.textContent = cap ? cap.textContent : '';
       photoModal.classList.add('open');
       document.body.style.overflow = 'hidden';
     }
