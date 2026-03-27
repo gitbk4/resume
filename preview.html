@@ -252,6 +252,8 @@
       font-weight: 600; font-size: 12px; margin-bottom: 1px;
     }
     .interest-detail { font-size: 11.5px; opacity: 0.72; line-height: 1.45; }
+    .interest-detail a { color: inherit; text-decoration: underline; text-decoration-color: rgba(128,128,128,0.4); text-underline-offset: 2px; transition: color 0.15s, text-decoration-color 0.15s; }
+    .interest-detail a:hover { color: var(--name); text-decoration-color: var(--name); }
 
     /* ── CURRENTLY ── */
     .currently-list {
@@ -889,8 +891,31 @@
     </article>
   </section>
 
+  <section id="section-currently" data-section="currently">
+    <div data-label="section-title" data-font="space-grotesk">Currently</div>
+    <hr />
+    <div class="currently-list">
+      <div class="currently-item">
+        <span class="currently-cat">Building</span>
+        <span class="currently-desc">Agentic AI with efficient context reinforcement. The future of B2B AI requires power <em>and</em> efficiency: reinforcing a near-static context window scales far better than quadratic expansion in a chat setting.</span>
+      </div>
+      <div class="currently-item">
+        <span class="currently-cat">Reading</span>
+        <span class="currently-desc">Vintage 70s sci-fi, the utopian vision of an inevitable future where meritocracy, progress, and collaboration come first. Carl Sagan's optimism is a useful antidote. His vision still feels possible.</span>
+      </div>
+      <div class="currently-item">
+        <span class="currently-cat">Obsessing over</span>
+        <span class="currently-desc">Watches and clocks from 1900–1980. The design beauty is obvious. What fascinates me more: our enshrinement of the obsession with measuring the decay of matter and transfer of energy, in metal, glass, and jewels. A market driven entirely by taste-makers.</span>
+      </div>
+      <div class="currently-item">
+        <span class="currently-cat">Nurturing</span>
+        <span class="currently-desc">Foster and rescue dogs with POMDR. Since June 2024 we've fostered and re-homed 11 dogs, and adopted two retired hunting pointers, Scout and Barnes, along the way.</span>
+      </div>
+    </div>
+  </section>
+
   <section id="section-extra" data-section="extra">
-    <div data-label="section-title" data-font="space-grotesk">Outside Work</div>
+    <div data-label="section-title" data-font="space-grotesk">Personal Interests</div>
     <hr />
     <div class="interest-grid">
       <div class="interest-item">
@@ -900,6 +925,10 @@
       <div class="interest-item">
         <div class="interest-label">Emergency Medicine</div>
         <div class="interest-detail">Currently training as a volunteer hyperbaric chamber operator. Medicine meets the sea.</div>
+      </div>
+      <div class="interest-item">
+        <div class="interest-label">Dog Rescue Volunteer</div>
+        <div class="interest-detail">Since 2023 I've been volunteering and now fostering dogs with <a href="https://www.pomdr.org" target="_blank" rel="noopener">Peace of Mind Dog Rescue</a>.</div>
       </div>
       <div class="interest-item">
         <div class="interest-label">Design &amp; Making</div>
@@ -920,29 +949,6 @@
       <div class="interest-item">
         <div class="interest-label">Hiking</div>
         <div class="interest-detail">High-altitude routes and summit days. The mountains are the one place with no agenda except up.</div>
-      </div>
-    </div>
-  </section>
-
-  <section id="section-currently" data-section="currently">
-    <div data-label="section-title" data-font="space-grotesk">Currently</div>
-    <hr />
-    <div class="currently-list">
-      <div class="currently-item">
-        <span class="currently-cat">Building</span>
-        <span class="currently-desc">Agentic AI with efficient context reinforcement. The future of B2B AI requires power <em>and</em> efficiency — reinforcing a near-static context window scales far better than quadratic expansion in a chat setting.</span>
-      </div>
-      <div class="currently-item">
-        <span class="currently-cat">Reading</span>
-        <span class="currently-desc">Vintage 70s sci-fi — the utopian vision of an inevitable future where meritocracy, progress, and collaboration come first. Carl Sagan's optimism is a useful antidote. His vision still feels possible.</span>
-      </div>
-      <div class="currently-item">
-        <span class="currently-cat">Obsessing over</span>
-        <span class="currently-desc">Watches and clocks from 1900–1980. The design beauty is obvious. What fascinates me more: our enshrinement of the obsession with measuring the decay of matter and transfer of energy — in metal, glass, and jewels. A market driven entirely by taste-makers.</span>
-      </div>
-      <div class="currently-item">
-        <span class="currently-cat">Nurturing</span>
-        <span class="currently-desc">Foster and rescue dogs with POMDR. Since June 2024 we've fostered and re-homed 11 dogs — and adopted two retired hunting pointers, Scout and Barnes, along the way.</span>
       </div>
     </div>
   </section>
